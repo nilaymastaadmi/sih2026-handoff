@@ -62,7 +62,7 @@ weighted rubrics (see the NTRO extracts in `01-research/`). The pitch therefore 
 | `01-research/` | Official raw material: guidelines (PDF + verbatim extraction), the official IDEA template (pptx + verbatim field list), all 231 PS in one TSV, full official descriptions of all 158 non-template software PS (`ps-full-text/`), the decisive ISRO annexure, two NTRO annexure extracts, live idea counts | the annexure |
 | `02-analysis/` | How the pick was made: the claims ledger (`CLAIMS.md`) and the honesty file (`GAPS.md`), the event model, competitor model, winner patterns, the independent top-12, verification, hidden-gems sweep, build playbook. `00-RECOMMENDATION.md` is the SUPERSEDED earlier 5-pick brief (kept for the trail); `02-competitor-model.md` is partly superseded by `08-winner-patterns.md` | CLAIMS.md, then GAPS.md |
 | `03-audit/` | An independent adversarial audit run 2026-09-01 by a separate session that formed its views before reading the decision: verdict (A0), claim-by-claim ledger check (A1), five blind alternatives (A2), pitch weaknesses (A3), fixes and improved pitch (A4) | A0-VERDICT.md |
-| `04-results/` | The final state: the decision document (09), the measured prototype results (12), the deck specification (13), the runnable prototype (`spike/`, numpy + PIL only), its output artifacts, the shareable verdict page (html), and `PPT-PLAN.md` | 09, then 12, then PPT-PLAN.md |
+| `04-results/` | The final state: the decision document (09), the measured prototype results (12), the deck specification (13), the acquisition + AI results (14), the runnable prototype (`spike/`, numpy + PIL only), its output artifacts, the shareable verdict page (html), the schedule (`PPT-PLAN.md`) and **`PPT-BUILD-GUIDE.md`, the complete manual instructions for whoever builds the deck** | 09, then 14, then PPT-BUILD-GUIDE.md |
 
 Recommended cold-start path: this file, then `03-audit/A0-VERDICT.md`, then
 `04-results/09-final-decision.md`, then `02-analysis/GAPS.md`, then anything else.
@@ -99,8 +99,31 @@ hold, none flips the pick.
 | compound worst case (all disturbance maxima) | fails at 420 px, 92% controller saturation, published deliberately |
 | turbulence generator vs Kolmogorov theory | fitted exponent 1.652 vs 5/3 at L/r0 = 102 |
 
+**Added 2026-09-02, the AI component measured** (`spike/ai_scorer.py`, A/B of all 11
+scenarios, classical vs classical-plus-learned-spot-scorer, identical conditions):
+
+| quantity | classical | AI-assisted |
+|---|---|---|
+| scenarios meeting all 5 targets | 7 of 11 | **8 of 11** |
+| impulse noise 10% (annexure max), mean error | 11.68 px (4/5 targets) | **3.59 px (5/5 targets)** |
+| same scenario, p95 error | 60.26 px | 4.06 px |
+| clean scenarios | unchanged | byte-identical outputs |
+| all-maxima worst case | claims lock at 420 px mean error | abstains (95% loss), 42 px when locked |
+
+The scorer is a numpy logistic regression on 21x21 patches (beacon point-spread
+function vs impulse noise), trained on 16,000 self-generated labelled patches, 99.7%
+training accuracy, no external data, no GPU. The worst-case behaviour is designed
+abstention, not failure to be hidden: a coarse stage that is confidently wrong is worse
+than one that declines. Honest caveat: random-walk-lowlight improves on error (39 to
+28 px mean) but worsens on loss (11 to 22%) and stays a 3-of-5 scenario.
+
+The full-screen acquisition CDF (`spike/acquisition_cdf.py`, 500 random spawns on the
+annexure's 2000x2000 screen, expanding-square search at the 5 deg/s slew cap) is
+reported in `04-results/14-acquisition-and-ai-results.md`.
+
 To reproduce: `cd 04-results/spike && python fsoc_spike.py` (numpy + PIL only), then
-`python test_finite_screen.py` for the turbulence validation.
+`python test_finite_screen.py` for the turbulence validation, `python ai_scorer.py`
+for the A/B, and `python acquisition_cdf.py` for the search CDF (the slow one).
 
 ## The known weak points, stated plainly
 

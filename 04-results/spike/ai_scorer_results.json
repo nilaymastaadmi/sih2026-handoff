@@ -1,0 +1,251 @@
+{
+ "train_acc": 0.997,
+ "classical": {
+  "baseline clear circular": {
+   "frames": 600,
+   "acq_s": 0.067,
+   "reacq_s": 0.8,
+   "err_mean_px": 0.116,
+   "err_max_px": 2.702,
+   "err_p95_px": 0.516,
+   "loss_pct": 4.333,
+   "fps": 55.502,
+   "sat_pct": 1.394
+  },
+  "straight line, haze": {
+   "frames": 600,
+   "acq_s": 0.067,
+   "reacq_s": 0.8,
+   "err_mean_px": 0.09,
+   "err_max_px": 1.153,
+   "err_p95_px": 0.261,
+   "loss_pct": 4.333,
+   "fps": 56.012,
+   "sat_pct": 1.394
+  },
+  "figure8, rain": {
+   "frames": 600,
+   "acq_s": 0.067,
+   "reacq_s": 0.8,
+   "err_mean_px": 0.436,
+   "err_max_px": 7.317,
+   "err_p95_px": 2.007,
+   "loss_pct": 4.333,
+   "fps": 36.699,
+   "sat_pct": 0.348
+  },
+  "random walk, lowlight": {
+   "frames": 600,
+   "acq_s": 0.067,
+   "reacq_s": 0.033,
+   "err_mean_px": 39.032,
+   "err_max_px": 406.601,
+   "err_p95_px": 143.069,
+   "loss_pct": 11.333,
+   "fps": 31.253,
+   "sat_pct": 22.368
+  },
+  "fog + poisson": {
+   "frames": 600,
+   "acq_s": 0.067,
+   "reacq_s": 0.8,
+   "err_mean_px": 0.365,
+   "err_max_px": 4.845,
+   "err_p95_px": 1.392,
+   "loss_pct": 4.333,
+   "fps": 56.63,
+   "sat_pct": 1.394
+  },
+  "salt&pepper 10% (annexure max)": {
+   "frames": 600,
+   "acq_s": 0.067,
+   "reacq_s": 0.033,
+   "err_mean_px": 11.685,
+   "err_max_px": 451.605,
+   "err_p95_px": 60.26,
+   "loss_pct": 2.0,
+   "fps": 55.716,
+   "sat_pct": 6.122
+  },
+  "jitter 20px/frame (max)": {
+   "frames": 600,
+   "acq_s": 0.067,
+   "reacq_s": 0.033,
+   "err_mean_px": 10.859,
+   "err_max_px": 50.231,
+   "err_p95_px": 27.52,
+   "loss_pct": 6.0,
+   "fps": 52.581,
+   "sat_pct": 1.418
+  },
+  "platform 20px/frame (max)": {
+   "frames": 600,
+   "acq_s": 0.067,
+   "reacq_s": 0.8,
+   "err_mean_px": 3.415,
+   "err_max_px": 27.836,
+   "err_p95_px": 5.019,
+   "loss_pct": 4.333,
+   "fps": 52.222,
+   "sat_pct": 1.742
+  },
+  "small spot 5px": {
+   "frames": 600,
+   "acq_s": 0.067,
+   "reacq_s": 0.8,
+   "err_mean_px": 0.158,
+   "err_max_px": 3.102,
+   "err_p95_px": 0.667,
+   "loss_pct": 4.333,
+   "fps": 55.086,
+   "sat_pct": 1.394
+  },
+  "large spot 20px": {
+   "frames": 600,
+   "acq_s": 0.067,
+   "reacq_s": 0.8,
+   "err_mean_px": 0.208,
+   "err_max_px": 2.916,
+   "err_p95_px": 0.622,
+   "loss_pct": 4.333,
+   "fps": 57.314,
+   "sat_pct": 1.394
+  },
+  "WORST CASE all-max": {
+   "frames": 600,
+   "acq_s": 0.067,
+   "reacq_s": 0.033,
+   "err_mean_px": 420.074,
+   "err_max_px": 1106.952,
+   "err_p95_px": 816.49,
+   "loss_pct": 13.0,
+   "fps": 55.884,
+   "sat_pct": 91.954
+  },
+  "scenarios_passing_all_targets": 7
+ },
+ "ai": {
+  "baseline clear circular": {
+   "frames": 600,
+   "acq_s": 0.067,
+   "reacq_s": 0.8,
+   "err_mean_px": 0.116,
+   "err_max_px": 2.702,
+   "err_p95_px": 0.516,
+   "loss_pct": 4.333,
+   "fps": 55.357,
+   "sat_pct": 1.394
+  },
+  "straight line, haze": {
+   "frames": 600,
+   "acq_s": 0.067,
+   "reacq_s": 0.8,
+   "err_mean_px": 0.09,
+   "err_max_px": 1.153,
+   "err_p95_px": 0.261,
+   "loss_pct": 4.333,
+   "fps": 57.041,
+   "sat_pct": 1.394
+  },
+  "figure8, rain": {
+   "frames": 600,
+   "acq_s": 0.067,
+   "reacq_s": 0.8,
+   "err_mean_px": 0.436,
+   "err_max_px": 7.317,
+   "err_p95_px": 2.007,
+   "loss_pct": 4.333,
+   "fps": 57.551,
+   "sat_pct": 0.348
+  },
+  "random walk, lowlight": {
+   "frames": 600,
+   "acq_s": 0.067,
+   "reacq_s": 0.033,
+   "err_mean_px": 28.273,
+   "err_max_px": 170.72,
+   "err_p95_px": 94.727,
+   "loss_pct": 22.0,
+   "fps": 59.509,
+   "sat_pct": 28.419
+  },
+  "fog + poisson": {
+   "frames": 600,
+   "acq_s": 0.067,
+   "reacq_s": 0.8,
+   "err_mean_px": 0.365,
+   "err_max_px": 4.845,
+   "err_p95_px": 1.392,
+   "loss_pct": 4.333,
+   "fps": 53.73,
+   "sat_pct": 1.394
+  },
+  "salt&pepper 10% (annexure max)": {
+   "frames": 600,
+   "acq_s": 0.067,
+   "reacq_s": 0.233,
+   "err_mean_px": 3.585,
+   "err_max_px": 212.166,
+   "err_p95_px": 4.062,
+   "loss_pct": 3.833,
+   "fps": 52.21,
+   "sat_pct": 3.12
+  },
+  "jitter 20px/frame (max)": {
+   "frames": 600,
+   "acq_s": 0.067,
+   "reacq_s": 0.033,
+   "err_mean_px": 10.859,
+   "err_max_px": 50.231,
+   "err_p95_px": 27.52,
+   "loss_pct": 6.0,
+   "fps": 58.248,
+   "sat_pct": 1.418
+  },
+  "platform 20px/frame (max)": {
+   "frames": 600,
+   "acq_s": 0.067,
+   "reacq_s": 0.8,
+   "err_mean_px": 3.415,
+   "err_max_px": 27.836,
+   "err_p95_px": 5.019,
+   "loss_pct": 4.333,
+   "fps": 54.292,
+   "sat_pct": 1.742
+  },
+  "small spot 5px": {
+   "frames": 600,
+   "acq_s": 0.067,
+   "reacq_s": 0.8,
+   "err_mean_px": 0.158,
+   "err_max_px": 3.102,
+   "err_p95_px": 0.667,
+   "loss_pct": 4.333,
+   "fps": 53.145,
+   "sat_pct": 1.394
+  },
+  "large spot 20px": {
+   "frames": 600,
+   "acq_s": 0.067,
+   "reacq_s": 0.8,
+   "err_mean_px": 0.208,
+   "err_max_px": 2.916,
+   "err_p95_px": 0.622,
+   "loss_pct": 4.333,
+   "fps": 52.746,
+   "sat_pct": 1.394
+  },
+  "WORST CASE all-max": {
+   "frames": 600,
+   "acq_s": 0.267,
+   "reacq_s": 10.433,
+   "err_mean_px": 41.814,
+   "err_max_px": 118.318,
+   "err_p95_px": 94.907,
+   "loss_pct": 94.667,
+   "fps": 51.132,
+   "sat_pct": 62.5
+  },
+  "scenarios_passing_all_targets": 8
+ }
+}

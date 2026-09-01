@@ -1,9 +1,11 @@
 # PPT plan: from this folder to the uploaded deck
 
-Written 2026-09-02. Deadline: the deck uploads the evening of 2026-09-02 (today).
-Inputs: `01-research/SIH2026-IDEA-Format.pptx` (the official template),
-`03-audit/A4-improved-pitch.md` (the field-by-field content, final), and
-`13-solution-spec-for-deck.md` (layout guidance, superseded by A4 where they differ).
+Written 2026-09-02, updated the same day. **The operative document for the person
+building the deck is `PPT-BUILD-GUIDE.md` in this folder: it contains every sentence,
+every number, both images, the table, and the checklist. This file is the schedule
+around it.** Status update: the acquisition CDF run and the AI scorer A/B are DONE
+(see `14-acquisition-and-ai-results.md`); their numbers are already inlined in the
+guide. Deadline: the deck uploads the evening of 2026-09-02.
 
 ## Non-negotiable template rules (from the template's own instruction slide)
 
@@ -37,11 +39,11 @@ Points and diagrams, not paragraphs. Export to PDF; no PPT accepted. **Delete th
 - [ ] References all resolve; no bare "published work on X"
 - [ ] File name and upload portal per the SPOC's instruction
 
-## If the acquisition run is not done by deck freeze
+## Acquisition run: DONE 2026-09-02
 
-Ship the honest fallback row: "acquisition (in-FOV) 0.07 s; full-screen random-spawn
-acquisition reported as a CDF, first finale milestone". Do not put an unmeasured
-full-screen number on the slide. A number we cannot produce is worse than no number.
+The fallback row is retired. Measured: 30% of 500 random spawns acquire within 2 s at
+the 5 deg/s cap, median 2.37 s, p95 5.63 s, 34% evade the baseline sweep; in-FOV
+median 0.067 s. The guide's slide 3 table and slide 4 risk bullet carry these.
 
 ## After the internal round (parking, not for today)
 
