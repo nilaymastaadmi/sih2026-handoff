@@ -206,8 +206,8 @@
     <div class="eyebrow">Ranked</div>
     <h2>The three changes that most improve our odds</h2>
     <ol class="ranked">
-      <li><strong>Run the full-screen acquisition test tonight (0.5 to 1 person-day).</strong>
-        <p>The spike's 0.07 s acquisition is measured on a scene that fits inside the initial field of view. The annexure's screen is 13 fields of view wide with random spawn; a blind raster cannot meet the 2 s target at all. An expanding-square search plus an acquisition-time CDF over 500 random spawns turns the pitch's most attackable number into the one exhibit no other team will have.</p></li>
+      <li><strong>Full-screen acquisition test: DONE, measured.</strong>
+        <p>500 random spawns on the annexure's 2000x2000 screen, expanding-square search at the 5 deg/s cap: 30% acquire within the 2 s target, median 2.37 s, p95 5.63 s; a moving beacon evades the baseline sweep in 34% of runs (the named improvement: 10 deg/s slew, velocity-aware re-sweep). The pitch's most attackable number is now its most distinctive exhibit; full record in the repo's 14-acquisition-and-ai-results.</p></li>
       <li><strong>Reframe the deck: one wedge sentence, AI first-class.</strong>
         <p>Open slide 2 with the wedge sentence above. Present the learned detector on the measured failure mode (impulse noise, worst frame 451 px) alongside the classical baseline, never classical-instead-of-AI: screeners score the deck against a title that says "AI-Based".</p></li>
       <li><strong>Hold 26228 as the national-stage hedge.</strong>
@@ -226,7 +226,7 @@
         <span class="num">0.36 px · 5 of 5 targets</span>
         <p>Foreign .mp4 in, same tracker, no code change, open loop by design. This is Benchmark Performance-2, 30% of the marks.</p></div>
       <div class="panel"><span class="tag">Panel 3</span><h3>The boundary</h3>
-        <span class="num">7 of 11 pass · worst case 420 px</span>
+        <span class="num">8 of 11 pass with AI · worst case 420 px</span>
         <p>The compound worst case failing honestly, with the saturation math from ISRO's own disturbance maxima. We publish the boundary.</p></div>
     </div>
     <div class="tablebox">
@@ -236,7 +236,9 @@
           <tr><td>External video (BP-2 rehearsal)</td><td class="mono">0.36 px mean</td><td class="mono">err &le; 10 px</td><td><span class="pill pass">5/5 targets</span></td></tr>
           <tr><td>Best tracking error</td><td class="mono">0.09 px (~10 &micro;rad)</td><td class="mono">&le; 10 px</td><td><span class="pill pass">pass</span></td></tr>
           <tr><td>Acquisition, in-FOV</td><td class="mono">0.07 s</td><td class="mono">&le; 2 s</td><td><span class="pill pass">pass</span></td></tr>
-          <tr><td>Full-screen acquisition, random spawn</td><td class="mono">CDF over 500 spawns</td><td class="mono">&le; 2 s</td><td><span class="pill pass">runs tonight</span></td></tr>
+          <tr><td>Full-screen acquisition, 500 random spawns</td><td class="mono">30% &le; 2 s; median 2.37 s, p95 5.63 s</td><td class="mono">&le; 2 s</td><td><span class="pill pass">measured</span></td></tr>
+          <tr><td>Impulse noise 10%: classical &rarr; +AI scorer</td><td class="mono">11.7 &rarr; 3.6 px mean; 4/5 &rarr; 5/5</td><td class="mono">&le; 10 px</td><td><span class="pill pass">measured</span></td></tr>
+          <tr><td>Scenario grid, all 5 targets met</td><td class="mono">classical 7/11 &middot; AI-assisted 8/11</td><td class="mono">&mdash;</td><td><span class="pill pass">measured</span></td></tr>
           <tr><td>Re-acquisition after forced dropout</td><td class="mono">0.80 s</td><td class="mono">&le; 1 s</td><td><span class="pill pass">pass</span></td></tr>
           <tr><td>Throughput, two machines</td><td class="mono">24 to 61 FPS</td><td class="mono">&ge; 20 FPS</td><td><span class="pill pass">pass</span></td></tr>
           <tr><td>All-maxima compound case</td><td class="mono">420 px · 92% saturation</td><td class="mono">&mdash;</td><td><span class="pill fail">published failure</span></td></tr>
@@ -303,7 +305,7 @@
     <ol class="pm">
       <li><b>A generalist jury picked platform decks; ours read as a niche instrument.</b> Prevented by: wedge sentence opens slide 2, the money argument opens slide 5, "AI-assisted" in the first line.</li>
       <li><b>The deck was scored against the title and read as under-delivering "AI-Based".</b> Prevented by: AI as a first-class measured component, no classical-instead-of-AI framing anywhere.</li>
-      <li><b>A technical juror hit the acquisition row and the answer was not in the deck.</b> Prevented by: the CDF run tonight, Q1 rehearsed.</li>
+      <li><b>A technical juror hit the acquisition row and the answer was not in the deck.</b> Prevented by: the CDF measured (500 spawns, 30% within 2 s) and on the slide, Q1 rehearsed.</li>
       <li><b>Process fumble under the 2 September crunch:</b> instruction slide not deleted, PPT instead of PDF, a placeholder left in. Prevented by: the template checklist executed by a second reader, upload the evening before.</li>
       <li><b>Jury quota or a stronger BITS team on the same PS.</b> Mitigated, not prevented: the internal round takes one PS, so the 26228 hedge only exists at the national stage if nominated; counters re-checked before filing.</li>
     </ol>
@@ -322,6 +324,6 @@
 
   <div class="foot">
     Audit trail: final/audit/ · A0-VERDICT · A1-ledger-check · A2-alternatives · A3-weaknesses · A4-improved-pitch<br>
-    Every measured number on this page replicated on a second machine 2026-09-01. FPS is hardware-dependent and quoted as a two-machine range.
+    Spike numbers replicated on a second machine 2026-09-01; acquisition CDF and AI A/B measured 2026-09-02. FPS is hardware-dependent and quoted as a two-machine range.
   </div>
 </div>
