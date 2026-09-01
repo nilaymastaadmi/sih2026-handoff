@@ -1,0 +1,327 @@
+<title>BeaconBench Verdict</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --ground:#F4F6F8;
+    --panel:#FFFFFF;
+    --ink:#1C2733;
+    --ink-soft:#46586A;
+    --muted:#6E7F8F;
+    --line:#D5DDE4;
+    --accent:#C1770B;
+    --accent-wash:rgba(193,119,11,0.10);
+    --good:#2E7D4F;
+    --good-wash:rgba(46,125,79,0.10);
+    --bad:#B4452F;
+    --bad-wash:rgba(180,69,47,0.08);
+    --warn:#8A6A12;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#12181F;
+      --panel:#1A222B;
+      --ink:#E6ECF1;
+      --ink-soft:#B3C0CC;
+      --muted:#8296A8;
+      --line:#2C3846;
+      --accent:#E3A43C;
+      --accent-wash:rgba(227,164,60,0.13);
+      --good:#58B382;
+      --good-wash:rgba(88,179,130,0.13);
+      --bad:#D97862;
+      --bad-wash:rgba(217,120,98,0.11);
+      --warn:#D6B25E;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#12181F;
+    --panel:#1A222B;
+    --ink:#E6ECF1;
+    --ink-soft:#B3C0CC;
+    --muted:#8296A8;
+    --line:#2C3846;
+    --accent:#E3A43C;
+    --accent-wash:rgba(227,164,60,0.13);
+    --good:#58B382;
+    --good-wash:rgba(88,179,130,0.13);
+    --bad:#D97862;
+    --bad-wash:rgba(217,120,98,0.11);
+    --warn:#D6B25E;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--ground);
+    color:var(--ink);
+    font-family:"Source Sans 3",-apple-system,"Segoe UI",sans-serif;
+    font-size:16.5px;
+    line-height:1.62;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:48px 22px 88px}
+  h1,h2,h3{font-family:"Saira Semi Condensed","Arial Narrow",sans-serif;line-height:1.15;text-wrap:balance;margin:0}
+  h1{font-size:2.35rem;font-weight:700;letter-spacing:0.2px}
+  h2{font-size:1.42rem;font-weight:600;margin:0 0 14px}
+  h3{font-size:1.08rem;font-weight:600;margin:0 0 6px}
+  p{margin:0 0 14px;max-width:68ch}
+  section{margin-top:44px}
+  .eyebrow{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--accent);font-weight:600;margin-bottom:8px;
+  }
+  .kicker{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:0.78rem;color:var(--muted);letter-spacing:0.06em;margin-top:10px;
+  }
+  .verdict{
+    margin-top:26px;
+    background:var(--good-wash);
+    border:1px solid var(--good);
+    border-radius:6px;
+    padding:20px 22px;
+  }
+  .verdict .call{
+    font-family:"Saira Semi Condensed",sans-serif;
+    font-size:1.5rem;font-weight:700;color:var(--good);
+  }
+  .verdict p{margin:8px 0 0;color:var(--ink-soft)}
+  .stats{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+    gap:10px;margin-top:22px;
+  }
+  .stat{
+    background:var(--panel);border:1px solid var(--line);border-radius:6px;
+    padding:12px 14px;
+  }
+  .stat .n{
+    font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;
+    font-size:1.55rem;font-weight:600;line-height:1.1;
+  }
+  .stat .l{font-size:0.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:4px}
+  .stat.good .n{color:var(--good)}
+  .stat.part .n{color:var(--warn)}
+  .stat.bad .n{color:var(--bad)}
+  .wedge{
+    background:var(--accent-wash);
+    border-left:3px solid var(--accent);
+    padding:16px 20px;margin:18px 0;
+    font-size:1.16rem;line-height:1.5;font-weight:600;
+    max-width:64ch;
+  }
+  ol.ranked{margin:0;padding-left:0;list-style:none;counter-reset:rk;display:flex;flex-direction:column;gap:14px}
+  ol.ranked li{
+    counter-increment:rk;
+    background:var(--panel);border:1px solid var(--line);border-radius:6px;
+    padding:14px 18px 14px 56px;position:relative;
+  }
+  ol.ranked li::before{
+    content:counter(rk);
+    position:absolute;left:16px;top:14px;
+    font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:1.15rem;
+    color:var(--accent);
+  }
+  ol.ranked li strong{display:block;margin-bottom:3px}
+  ol.ranked li p{margin:0;color:var(--ink-soft);font-size:0.95rem}
+  .panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:12px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px 16px}
+  .panel .tag{font-family:"IBM Plex Mono",monospace;font-size:0.7rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
+  .panel h3{margin-top:4px}
+  .panel .num{
+    font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;
+    color:var(--accent);font-weight:600;font-size:1.05rem;display:block;margin-top:8px;
+  }
+  .panel p{font-size:0.92rem;color:var(--ink-soft);margin:6px 0 0}
+  .tablebox{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--panel);margin-top:12px}
+  table{border-collapse:collapse;width:100%;min-width:520px;font-size:0.93rem}
+  th{
+    text-align:left;font-family:"IBM Plex Mono",monospace;font-size:0.72rem;
+    letter-spacing:0.09em;text-transform:uppercase;color:var(--muted);
+    padding:10px 14px;border-bottom:1px solid var(--line);font-weight:500;
+  }
+  td{padding:9px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  td.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .pill{
+    display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:0.7rem;
+    padding:2px 8px;border-radius:99px;letter-spacing:0.05em;
+  }
+  .pill.pass{background:var(--good-wash);color:var(--good)}
+  .pill.fail{background:var(--bad-wash);color:var(--bad)}
+  .qa{display:flex;flex-direction:column;gap:14px;margin-top:12px}
+  .qa .q{
+    background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px 18px;
+  }
+  .qa .q b{display:block;margin-bottom:6px}
+  .qa .q p{margin:0;color:var(--ink-soft);font-size:0.96rem}
+  ol.pm{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:10px}
+  ol.pm li{color:var(--ink-soft)}
+  ol.pm li b{color:var(--ink)}
+  ul.plain{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:7px}
+  ul.plain li{color:var(--ink-soft);font-size:0.96rem}
+  .slide{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px 20px;margin-top:12px}
+  .slide .sl{font-family:"IBM Plex Mono",monospace;font-size:0.7rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;font-weight:600}
+  .slide h3{margin-top:2px}
+  .slide p, .slide li{font-size:0.95rem}
+  .slide ul{padding-left:18px;margin:8px 0 0;display:flex;flex-direction:column;gap:6px;color:var(--ink-soft)}
+  .foot{
+    margin-top:56px;padding-top:18px;border-top:1px solid var(--line);
+    font-family:"IBM Plex Mono",monospace;font-size:0.75rem;color:var(--muted);line-height:1.8;
+  }
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-wash)}
+  a:hover,a:focus-visible{border-bottom-color:var(--accent)}
+  a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  @media (max-width:560px){ h1{font-size:1.8rem} .wrap{padding-top:32px} }
+</style>
+
+<div class="wrap">
+  <div class="eyebrow">SIH 2026 · BITS Goa internal round · audit of the selected pitch</div>
+  <h1>BeaconBench Verdict</h1>
+  <div class="kicker">PS 26169 · ISRO, Dept. of Space · audited 2026-09-01 · sources: live portal, re-downloaded annexure, prototype rerun, 7 neutral research passes</div>
+
+  <div class="verdict">
+    <div class="call">KEEP THE PICK: PS 26169</div>
+    <p>AI-Based Virtual Camera Tracking for Coarse Alignment of Mobile FSOC Terminals. The audit attacked it four ways: every ledger claim re-verified against primary sources, the prototype rerun cold on a second machine, five alternatives argued blind before reading the pick's case, and every prior-art kill re-run through neutral agents. It survived all four. Runner-up and second filing: PS 26228 (MoD, CV integrity).</p>
+  </div>
+
+  <section>
+    <div class="eyebrow">The count</div>
+    <h2>37 ledger claims, 34 checked</h2>
+    <div class="stats">
+      <div class="stat good"><div class="n">24</div><div class="l">hold</div></div>
+      <div class="stat part"><div class="n">8</div><div class="l">hold in part</div></div>
+      <div class="stat bad"><div class="n">1</div><div class="l">does not hold</div></div>
+      <div class="stat"><div class="n">3</div><div class="l">not rechecked, immaterial</div></div>
+    </div>
+    <p style="margin-top:14px">No failure flips the pick; they cluster in the prior-art kills of candidates that lost anyway. The formerly unchecked keystone, the ISRO annexure, is now closed in the pick's favour: re-downloaded today from the live portal's own Dataset Link, byte-identical (SHA256 match) to the packaged copy. New facts the package lacked: the portal grew to 231 PS overnight (26230, 26231 added), and NTRO also publishes weighted rubrics, so the pitch says "built to ISRO's published rubric", never "the only rubric". The prototype replicated exactly: 7 of 11 scenarios meet all 5 published targets, 0.36 px on external video, turbulence exponent 1.652 against theory's 1.667.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow">The wedge sentence</div>
+    <div class="wedge">ISRO published five numeric performance targets for this problem; our testbed already meets all five on video it had never seen, at 0.36 pixels mean error.</div>
+    <p style="color:var(--muted);font-size:0.9rem">The judge-to-judge compression: "they already pass ISRO's own published benchmarks."</p>
+  </section>
+
+  <section>
+    <div class="eyebrow">Ranked</div>
+    <h2>The three changes that most improve our odds</h2>
+    <ol class="ranked">
+      <li><strong>Run the full-screen acquisition test tonight (0.5 to 1 person-day).</strong>
+        <p>The spike's 0.07 s acquisition is measured on a scene that fits inside the initial field of view. The annexure's screen is 13 fields of view wide with random spawn; a blind raster cannot meet the 2 s target at all. An expanding-square search plus an acquisition-time CDF over 500 random spawns turns the pitch's most attackable number into the one exhibit no other team will have.</p></li>
+      <li><strong>Reframe the deck: one wedge sentence, AI first-class.</strong>
+        <p>Open slide 2 with the wedge sentence above. Present the learned detector on the measured failure mode (impulse noise, worst frame 451 px) alongside the classical baseline, never classical-instead-of-AI: screeners score the deck against a title that says "AI-Based".</p></li>
+      <li><strong>Hold 26228 as the national-stage hedge.</strong>
+        <p>The internal round allows one PS per team (confirmed 2 Sept), so this is not an internal action. If nominated, confirm with the SPOC that a second idea can be filed on the portal by 20 September, then file 26228: the audit strengthened its wedge (no shipped product binds inference outputs to model and data lineage end-to-end; detection of novel attacks is near-chance) and its deck is a half-day lift from the existing twelve-field writeup.</p></li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="eyebrow">Deck spine</div>
+    <h2>Three panels, one number each</h2>
+    <div class="panels">
+      <div class="panel"><span class="tag">Panel 1</span><h3>The instrument</h3>
+        <span class="num">0.09 px mean error</span>
+        <p>GUI frame: virtual sky, tracked beacon, live metric strip. About 10 microradians, through haze.</p></div>
+      <div class="panel"><span class="tag">Panel 2</span><h3>External video</h3>
+        <span class="num">0.36 px · 5 of 5 targets</span>
+        <p>Foreign .mp4 in, same tracker, no code change, open loop by design. This is Benchmark Performance-2, 30% of the marks.</p></div>
+      <div class="panel"><span class="tag">Panel 3</span><h3>The boundary</h3>
+        <span class="num">7 of 11 pass · worst case 420 px</span>
+        <p>The compound worst case failing honestly, with the saturation math from ISRO's own disturbance maxima. We publish the boundary.</p></div>
+    </div>
+    <div class="tablebox">
+      <table>
+        <thead><tr><th>Slide 3 results row</th><th>Measured</th><th>Target</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>External video (BP-2 rehearsal)</td><td class="mono">0.36 px mean</td><td class="mono">err &le; 10 px</td><td><span class="pill pass">5/5 targets</span></td></tr>
+          <tr><td>Best tracking error</td><td class="mono">0.09 px (~10 &micro;rad)</td><td class="mono">&le; 10 px</td><td><span class="pill pass">pass</span></td></tr>
+          <tr><td>Acquisition, in-FOV</td><td class="mono">0.07 s</td><td class="mono">&le; 2 s</td><td><span class="pill pass">pass</span></td></tr>
+          <tr><td>Full-screen acquisition, random spawn</td><td class="mono">CDF over 500 spawns</td><td class="mono">&le; 2 s</td><td><span class="pill pass">runs tonight</span></td></tr>
+          <tr><td>Re-acquisition after forced dropout</td><td class="mono">0.80 s</td><td class="mono">&le; 1 s</td><td><span class="pill pass">pass</span></td></tr>
+          <tr><td>Throughput, two machines</td><td class="mono">24 to 61 FPS</td><td class="mono">&ge; 20 FPS</td><td><span class="pill pass">pass</span></td></tr>
+          <tr><td>All-maxima compound case</td><td class="mono">420 px · 92% saturation</td><td class="mono">&mdash;</td><td><span class="pill fail">published failure</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">IDEA template</div>
+    <h2>Deck draft, field by field</h2>
+    <div class="slide"><span class="sl">Slide 2 · Idea title</span>
+      <h3>BeaconBench, an FSOC coarse-alignment testbed you can measure with</h3>
+      <ul>
+        <li><b>Proposed solution:</b> the wedge sentence, then: a software instrument replacing the cameras, pan-tilt mounts and optical benches needed to develop laser-terminal pointing. It renders a configurable virtual sky, flies a beacon through the annexure's full disturbance set, closes an AI-assisted detection and tracking loop around it, and grades every run automatically.</li>
+        <li><b>How it addresses the problem:</b> the sponsor's stated motive is an inexpensive, accessible platform for algorithm development; this is that platform, scoring itself with the exact metrics the annexure names.</li>
+        <li><b>Innovation and uniqueness:</b> (a) swappable frame source, external .mp4 first-class, already 0.36 px on unseen frames; (b) AI where the data says it pays: learned detection on the measured impulse-noise failure mode, reported against the classical baseline per scenario; (c) a published failure boundary derived from ISRO's own disturbance maxima.</li>
+      </ul>
+    </div>
+    <div class="slide"><span class="sl">Slide 3 · Technical approach</span>
+      <ul>
+        <li><b>Technologies:</b> Python, numpy, PIL (the entire dependency list for every number shown); AOtools/HCIPy phase screens for the physics mode; desktop GUI packaged as a standalone executable. No GPU, no cloud, no internet.</li>
+        <li><b>Methodology:</b> pipeline flow scene &rarr; sensor &rarr; detect &rarr; track &rarr; control &rarr; log, frame source drawn as a switch (virtual camera | external video). Evidence panel: four measured frames, including the worst case failing at 424 px, captioned as measured 2026-09-01.</li>
+      </ul>
+    </div>
+    <div class="slide"><span class="sl">Slide 4 · Feasibility and viability</span>
+      <ul>
+        <li><b>Risk 1, acquisition:</b> a blind raster of the specified 2000x2000 screen cannot finish in 2 s at the 5 deg/s slew cap; acquisition is a search-strategy problem and we treat it as one, reporting a CDF.</li>
+        <li><b>Risk 2, rate saturation:</b> 20 px/frame at 30 fps is 3.75 deg/s against a 5 deg/s cap; our compound worst case fails here, measured, and the boundary is published.</li>
+        <li><b>Risk 3, turbulence realism:</b> contrast reduction is compliant but not physics; our Kolmogorov generator is validated (exponent 1.652 vs 5/3 at L/r0 = 102) and is being wired into the scenario table.</li>
+      </ul>
+    </div>
+    <div class="slide"><span class="sl">Slide 5 · Impact and benefits</span>
+      <ul>
+        <li><b>Audience:</b> ISRO engineers and students develop and regression-test PAT algorithms in minutes on a laptop instead of queueing for an optical bench.</li>
+        <li><b>Economic:</b> one testbed replaces per-student hardware, ISRO's own stated motive. <b>Strategic:</b> ISRO LEOS lists optical communication among next-generation technologies; MeitY/ERNET runs an FSOC pilot at Kohima.</li>
+      </ul>
+    </div>
+    <div class="slide"><span class="sl">Slide 6 · References, all resolved 2026-09-01</span>
+      <ul>
+        <li>PS 26169 annexure via the portal Dataset Link, hash-verified across two fetch dates</li>
+        <li>arXiv 2508.08950 (real terminal, mean acquisition 0.908 s) · arXiv 2309.10999 · arXiv 2304.02804 · SPIE 9354 (MIT NODE CubeSat PAT)</li>
+        <li>AOtools (LGPL-3.0) and HCIPy (MIT) phase screens · isro.gov.in/LEOS.html · ernet.in/projects/fsoc.html</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Q&amp;A</div>
+    <h2>The three questions the jury will ask</h2>
+    <div class="qa">
+      <div class="q"><b>"The beacon spawns anywhere on a 2000x2000 screen and you see 640x480. How do you acquire in 2 seconds?"</b>
+        <p>A blind raster cannot: 13 fields of view against a 5 deg/s cap needs about 5 seconds. So we run an expanding-square search and report the acquisition CDF over 500 random spawns instead of quoting one lucky number; within-FOV acquisition is 0.07 s, and the CDF states exactly what fraction meets 2 s.</p></div>
+      <div class="q"><b>"What does AI buy you over a centroid tracker and a Kalman filter?"</b>
+        <p>On clean frames, nothing, and we say so with numbers. Our measured failure mode is detection under impulse noise: worst frame 451 px at 10% salt-and-pepper. A learned spot scorer recovers those frames. The deck reports classical and AI-assisted results side by side per scenario, which the annexure's technical report explicitly asks for.</p></div>
+      <div class="q"><b>"Contrast reduction is not atmosphere. What is your turbulence model?"</b>
+        <p>Agreed. Contrast mode exists because the annexure specifies it. The physics mode is Kolmogorov phase screens with subharmonic augmentation, validated against the theoretical structure function: fitted exponent 1.652 against 5/3 at L/r0 = 102, with the residual explained by finite screen size, measured across four grid sizes.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Pre-mortem</div>
+    <h2>It is 3 September and we did not advance</h2>
+    <ol class="pm">
+      <li><b>A generalist jury picked platform decks; ours read as a niche instrument.</b> Prevented by: wedge sentence opens slide 2, the money argument opens slide 5, "AI-assisted" in the first line.</li>
+      <li><b>The deck was scored against the title and read as under-delivering "AI-Based".</b> Prevented by: AI as a first-class measured component, no classical-instead-of-AI framing anywhere.</li>
+      <li><b>A technical juror hit the acquisition row and the answer was not in the deck.</b> Prevented by: the CDF run tonight, Q1 rehearsed.</li>
+      <li><b>Process fumble under the 2 September crunch:</b> instruction slide not deleted, PPT instead of PDF, a placeholder left in. Prevented by: the template checklist executed by a second reader, upload the evening before.</li>
+      <li><b>Jury quota or a stronger BITS team on the same PS.</b> Mitigated, not prevented: the internal round takes one PS, so the 26228 hedge only exists at the national stage if nominated; counters re-checked before filing.</li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="eyebrow">Open items</div>
+    <h2>Still unchecked, and whose job it is</h2>
+    <ul class="plain">
+      <li><b>Does BITS Goa bind the team to the internally-filed PS, or can it change before 20 September national submission?</b> Only the SPOC can answer. Owner: Nilay, this week. The one open fact that could change strategy.</li>
+      <li><b>Internal jury composition.</b> Unknowable until announced; mitigated by the reframe and the second filing.</li>
+      <li><b>Annexure revision risk.</b> Re-hash the Drive file weekly, 1 minute; reference hash in A1.</li>
+      <li><b>Whether "AI-assisted" makes a learned component mandatory in ISRO's scoring.</b> No public source settles it; the reframe ships one either way.</li>
+    </ul>
+  </section>
+
+  <div class="foot">
+    Audit trail: final/audit/ · A0-VERDICT · A1-ledger-check · A2-alternatives · A3-weaknesses · A4-improved-pitch<br>
+    Every measured number on this page replicated on a second machine 2026-09-01. FPS is hardware-dependent and quoted as a two-machine range.
+  </div>
+</div>
