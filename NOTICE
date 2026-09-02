@@ -1,0 +1,13 @@
+THIRD-PARTY CONTENT
+
+This repository is MIT licensed (see LICENSE). That licence covers the work
+authored by the copyright holder. It does not cover the files listed below,
+which are redistributed here for reproducibility and remain under the terms of
+their original sources.
+
+01-research/*.pdf
+01-research/SIH2026-IDEA-Format.pptx
+    Official Smart India Hackathon 2026 guidelines, problem-statement
+    annexures and idea template, published by the organisers and kept here
+    verbatim so the analysis can be checked against its sources. These are
+    the organisers' documents and are not relicensed by this repository.

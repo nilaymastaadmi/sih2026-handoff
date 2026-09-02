@@ -19,18 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-
-===============================================================================
-THIRD-PARTY CONTENT
-
-The licence above covers the work in this repository authored by the copyright
-holder. It does not cover the files listed below, which are redistributed here
-for reproducibility and remain under the terms of their original sources.
-
-  01-research/*.pdf, 01-research/SIH2026-IDEA-Format.pptx
-      Official Smart India Hackathon 2026 guidelines, problem-statement
-      annexures and idea template, published by the organisers and included
-      here verbatim so the analysis can be checked against its sources.
-      These documents are the organisers' material, not the copyright
-      holder's, and are not relicensed by this file.
